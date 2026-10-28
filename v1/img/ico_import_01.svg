@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80.368" height="106.222" viewBox="0 0 80.368 106.222">
+  <g id="Group_1951" data-name="Group 1951" transform="translate(0)">
+    <g id="Rectangle_940" data-name="Rectangle 940" transform="translate(15.62)" fill="none" stroke="#18c9a7" stroke-width="6">
+      <rect width="41.864" height="37.49" rx="10" stroke="none"/>
+      <rect x="3" y="3" width="35.864" height="31.49" rx="7" fill="none"/>
+    </g>
+    <g id="Rectangle_941" data-name="Rectangle 941" transform="translate(15.62 59.984)" fill="none" stroke="#18c9a7" stroke-width="6">
+      <rect width="41.864" height="46.238" rx="10" stroke="none"/>
+      <rect x="3" y="3" width="35.864" height="40.238" rx="7" fill="none"/>
+    </g>
+    <g id="Rectangle_942" data-name="Rectangle 942" transform="translate(57.124 29.847) rotate(-30)" fill="none" stroke="#18c9a7" stroke-width="6">
+      <rect width="16.139" height="18.534" rx="8.07" stroke="none"/>
+      <rect x="3" y="3" width="10.139" height="12.534" rx="5.07" fill="none"/>
+    </g>
+    <g id="Rectangle_943" data-name="Rectangle 943" transform="translate(66.308 60.253) rotate(30)" fill="none" stroke="#18c9a7" stroke-width="6">
+      <rect width="15.514" height="17.285" rx="7.757" stroke="none"/>
+      <rect x="3" y="3" width="9.514" height="11.285" rx="4.757" fill="none"/>
+    </g>
+    <g id="Ellipse_196" data-name="Ellipse 196" transform="translate(0 14.996)" fill="#fff" stroke="#1e9d9d" stroke-width="6">
+      <circle cx="36.553" cy="36.553" r="36.553" stroke="none"/>
+      <circle cx="36.553" cy="36.553" r="33.553" fill="none"/>
+    </g>
+    <path id="Path_2223" data-name="Path 2223" d="M4520.231,4155.053v22.462l-13.772,17.43" transform="translate(-4483.054 -4124.403)" fill="#fff" stroke="#1e9d9d" stroke-linecap="round" stroke-width="6"/>
+  </g>
+</svg>

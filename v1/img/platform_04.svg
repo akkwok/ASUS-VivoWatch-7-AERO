@@ -1,0 +1,59 @@
+<svg id="工作區域_7" data-name="工作區域 7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="86" height="79.975" viewBox="0 0 86 79.975">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#18c9a7"/>
+      <stop offset="1" stop-color="#1e9d9d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0" y1="0.5" x2="1" y2="0.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-9" x1="0" y1="0.5" x2="1" y2="0.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-10" x1="0" y1="0.5" x2="1" y2="0.5" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="g1521" transform="translate(40.711 47.699)">
+    <g id="path1523">
+      <path id="Path_2107" data-name="Path 2107" d="M74.552,107.729a2.252,2.252,0,0,1-2.252-2.252V86.962a2.252,2.252,0,1,1,4.5,0v18.514A2.252,2.252,0,0,1,74.552,107.729Z" transform="translate(-72.3 -84.71)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="g1533" transform="translate(36.015 66.213)">
+    <g id="path1535">
+      <path id="Path_2108" data-name="Path 2108" d="M70.908,131.352a6.881,6.881,0,1,1,6.948-6.881A6.92,6.92,0,0,1,70.908,131.352Zm0-9.257a2.377,2.377,0,1,0,2.444,2.376A2.41,2.41,0,0,0,70.908,122.095Z" transform="translate(-63.96 -117.59)" fill="url(#linear-gradient-2)"/>
+    </g>
+  </g>
+  <g id="g1545" transform="translate(18.953 61.584)">
+    <g id="path1547">
+      <path id="Path_2109" data-name="Path 2109" d="M35.912,123.132a2.252,2.252,0,0,1-2.252-2.252v-9.257a2.252,2.252,0,0,1,4.5,0v9.257A2.252,2.252,0,0,1,35.912,123.132Z" transform="translate(-33.66 -109.37)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="g1549" transform="translate(62.547 61.584)">
+    <g id="path1551">
+      <path id="Path_2110" data-name="Path 2110" d="M113.332,123.132a2.252,2.252,0,0,1-2.252-2.252v-9.257a2.252,2.252,0,0,1,4.5,0v9.257A2.252,2.252,0,0,1,113.332,123.132Z" transform="translate(-111.08 -109.37)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="g1513" transform="translate(9.398 47.699)">
+    <g id="path1515">
+      <path id="Path_2111" data-name="Path 2111" d="M37.9,103.1H18.942a2.252,2.252,0,0,1,0-4.5h16.7V86.962a2.252,2.252,0,1,1,4.5,0v13.886A2.252,2.252,0,0,1,37.9,103.1Z" transform="translate(-16.69 -84.71)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="path1519" transform="translate(53.149 47.699)">
+    <path id="Path_2112" data-name="Path 2112" d="M115.6,103.1H96.642a2.252,2.252,0,0,1-2.252-2.252V86.962a2.252,2.252,0,1,1,4.5,0V98.6h16.7a2.252,2.252,0,0,1,0,4.5Z" transform="translate(-94.39 -84.71)" fill="url(#linear-gradient)"/>
+  </g>
+  <g id="g1537" transform="translate(0 56.956)">
+    <g id="path1539">
+      <path id="Path_2113" data-name="Path 2113" d="M6.948,114.912a6.881,6.881,0,1,1,6.948-6.881A6.92,6.92,0,0,1,6.948,114.912Zm0-9.257a2.377,2.377,0,1,0,2.444,2.376A2.41,2.41,0,0,0,6.948,105.655Z" transform="translate(0 -101.15)" fill="url(#linear-gradient-2)"/>
+    </g>
+  </g>
+  <g id="g1541" transform="translate(72.103 56.956)">
+    <g id="path1543">
+      <path id="Path_2114" data-name="Path 2114" d="M135,114.912a6.881,6.881,0,1,1,6.948-6.881A6.92,6.92,0,0,1,135,114.912Zm0-9.257a2.377,2.377,0,1,0,2.444,2.376A2.41,2.41,0,0,0,135,105.655Z" transform="translate(-128.05 -101.15)" fill="url(#linear-gradient-2)"/>
+    </g>
+  </g>
+  <g id="g1501" transform="translate(12.365)">
+    <g id="path1507">
+      <path id="Path_2115" data-name="Path 2115" d="M80.909,52.2h-56.7a2.252,2.252,0,0,1-2.252-2.252V2.252A2.252,2.252,0,0,1,24.212,0h56.7a2.252,2.252,0,0,1,2.252,2.252v47.7A2.252,2.252,0,0,1,80.909,52.2ZM26.465,47.7H78.657V4.5H26.465Z" transform="translate(-21.96)" fill="url(#linear-gradient-9)"/>
+    </g>
+  </g>
+  <g id="g1509" transform="translate(24.483 7.68)">
+    <g id="path1511">
+      <path id="Path_2116" data-name="Path 2116" d="M67.377,50.488H56.555A2.252,2.252,0,0,1,54.3,48.236V39.649h-8.57A2.252,2.252,0,0,1,43.48,37.4V26.732a2.252,2.252,0,0,1,2.252-2.252H54.3V15.892a2.252,2.252,0,0,1,2.252-2.252H67.377a2.252,2.252,0,0,1,2.252,2.252v8.587H78.2a2.252,2.252,0,0,1,2.252,2.252V37.4A2.252,2.252,0,0,1,78.2,39.649H69.63v8.587A2.252,2.252,0,0,1,67.377,50.488Zm-8.576-4.5h6.318V37.4a2.252,2.252,0,0,1,2.252-2.252h8.57v-6.16h-8.57a2.252,2.252,0,0,1-2.252-2.252V18.145H58.8v8.587a2.252,2.252,0,0,1-2.252,2.252h-8.57v6.16h8.57A2.252,2.252,0,0,1,58.8,37.4Z" transform="translate(-43.48 -13.64)" fill="url(#linear-gradient-10)"/>
+    </g>
+  </g>
+</svg>
