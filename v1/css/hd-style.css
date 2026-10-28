@@ -6819,6 +6819,7 @@ left: 0;
     color: #4E566C !important;
     font-family: "TT Norms Pro";
     font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 #hd #Fanless-overview .maintitle h2,
