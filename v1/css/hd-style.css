@@ -7639,7 +7639,7 @@ Bento Card 卡片容器共用設定
 
 #hd .sec-ksp .ksp-badge {
     display: inline-block;
-    background-color: #ea55a0;
+    background-color: #e30d78;
     color: #FFFFFF;
     font-size: 0.9rem;
     font-weight: 700;
@@ -11511,9 +11511,9 @@ Slide 04 專屬樣式 (SOS 警告警示主題)
 文案與警示色系 (對齊 WCAG AA 對比規範)
 -------------------------------------------------- */
 #hd #LU800-slider .slide-title--sos {
-    color: #ea55a0;
+    color: #e30d78;
     /* 高識別度 SOS 警示洋紅色 */
-    background: linear-gradient(135deg, #ea55a0 0%, #8c0047 100%);
+    background: linear-gradient(135deg, #e30d78 0%, #8c0047 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12170,7 +12170,7 @@ gap: 40px;*/
 #hd .sc-dynamic-section .sc-card-title {
     font-size: 1.85rem;
     font-weight: 800;
-    color: #1b2024;
+    color: #000;
     line-height: 1.25;
     margin-bottom: 16px;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5), 0px 0px 5px rgba(255, 255, 255, 1);
@@ -12366,9 +12366,9 @@ gap: 40px;*/
 #hd #LU800-deeper h2.sc-scale-text {
     
     opacity: 0.3;
-    color: #ea55a0;
-        background-color: #ea55a0;
-    background-image: linear-gradient(58deg, #ea55a0 20%, #8c0047 80%);
+    color: #e30d78;
+        background-color: #e30d78;
+    background-image: linear-gradient(58deg, #e30d78 20%, #8c0047 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12380,9 +12380,9 @@ gap: 40px;*/
 
 /* 專屬標題健康桃紅色彩 */
 #hd #LU800-deeper .sc-title {
-    color: #ea55a0;
-        background-color: #ea55a0;
-    background-image: linear-gradient(58deg, #ea55a0 20%, #8c0047 80%);
+    color: #e30d78;
+        background-color: #e30d78;
+    background-image: linear-gradient(58deg, #e30d78 20%, #8c0047 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12394,7 +12394,7 @@ gap: 40px;*/
 }
 
 #hd #LU800-deeper .sc-tab-btn {
-    color: #EA55A0;
+    color: #e30d78;
 }
 
 #hd #LU800-deeper .sc-tab-btn.is-active {
@@ -12402,7 +12402,7 @@ gap: 40px;*/
 }
 
 #hd #LU800-deeper .sc-tab-btn:focus-visible {
-    outline: 2px solid #EA55A0;
+    outline: 2px solid #e30d78;
     outline-offset: 2px;
 }
 
@@ -12412,13 +12412,13 @@ gap: 40px;*/
 
 /* 專屬指示條漸層色 */
 #hd #LU800-deeper .sc-tab-indicator {
-    background: linear-gradient(135deg, #e34c85 0%, #EA55A0 100%);
+    background: linear-gradient(135deg, #e34c85 0%, #e30d78 100%);
     /*box-shadow: 0 4px 12px rgba(207, 61, 117, 0.3);*/
 }
 
 /* 專屬卡片標籤 Badge 色彩 */
 #hd #LU800-deeper .sc-badge {
-    background: linear-gradient(135deg, #EA55A0 0%, #EA55A0 100%);
+    background: linear-gradient(135deg, #e30d78 0%, #e30d78 100%);
     /*box-shadow: 0 4px 10px rgba(207, 61, 117, 0.2);*/
 }
 
