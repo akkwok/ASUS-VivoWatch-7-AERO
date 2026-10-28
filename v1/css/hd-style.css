@@ -10800,26 +10800,41 @@ Slide 01 專屬內部排版
     padding: 10px 16px;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 #hd #LU800-slider .s7-bullet {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: #b2b9cc;
     border-radius: 9999px;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
     border: none;
     outline: none;
     padding: 0;
+    margin: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
+}
+
+/* 利用 ::before 擴大觸控目標至 44px x 44px (解決 Lighthouse Touch targets 規範) */
+#hd #LU800-slider .s7-bullet::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    z-index: 1;
 }
 
 #hd #LU800-slider .s7-bullet:focus-visible {
     outline: 2px solid #4e566c;
-    outline-offset: 2px;
+    outline-offset: 4px;
 }
 
 #hd #LU800-slider .s7-bullet.is-active {
@@ -10836,6 +10851,7 @@ Slide 01 專屬內部排版
     background-color: #4c566e;
     border-radius: 9999px;
     will-change: width;
+    pointer-events: none;
 }
 
 #hd #LU800-slider .s7-play-btn {
@@ -10850,6 +10866,7 @@ Slide 01 專屬內部排版
     display: flex;
     align-items: center;
     justify-content: center;
+    touch-action: manipulation;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -10972,12 +10989,10 @@ Slide 01 專屬內部排版
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
-
 }
 
 /* WCAG 2.3.3 Reduced Motion 減敏支援 */
 @media (prefers-reduced-motion: reduce) {
-
     #hd #LU800-slider .s7-swiper-wrapper,
     #hd #LU800-slider .s7-slide,
     #hd #LU800-slider .s7-bullet,
@@ -12403,7 +12418,7 @@ gap: 40px;*/
 
 /* 專屬卡片標籤 Badge 色彩 */
 #hd #LU800-deeper .sc-badge {
-    background: linear-gradient(135deg, #E886B8 0%, #E886B8 100%);
+    background: linear-gradient(135deg, #EA55A0 0%, #EA55A0 100%);
     /*box-shadow: 0 4px 10px rgba(207, 61, 117, 0.2);*/
 }
 
@@ -12459,11 +12474,11 @@ gap: 40px;*/
 /* 膠囊 Tab 系統 */
 #hd #LU800-even .sc-tabnav-pill {
     background-color: #fff;
-    border: 1px solid #5B81DB;
+    border: 1px solid #3E68CB;
 }
 
 #hd #LU800-even .sc-tab-btn {
-    color: #5B81DB;
+    color: #3E68CB;
 }
 
 #hd #LU800-even .sc-tab-btn.is-active {
@@ -12471,19 +12486,19 @@ gap: 40px;*/
 }
 
 #hd #LU800-even .sc-tab-btn:focus-visible {
-    outline: 2px solid #5B81DB;
+    outline: 2px solid #3E68CB;
     outline-offset: 2px;
 }
 
 /* 滑動指示條漸層色 */
 #hd #LU800-even .sc-tab-indicator {
-    background: linear-gradient(135deg, #5B81DB 0%, #5B81DB 100%);
+    background: linear-gradient(135deg, #3E68CB 0%, #3E68CB 100%);
 
 }
 
 /* 卡片內標籤 Badge 色彩 */
 #hd #LU800-even .sc-badge {
-    background: linear-gradient(135deg, #5B81DB 0%, #5B81DB 100%);
+    background: linear-gradient(135deg, #3E68CB 0%, #3E68CB 100%);
 }
 
 @media (max-width: 768px) {
@@ -12528,11 +12543,11 @@ gap: 40px;*/
 /* 膠囊 Tab 系統 */
 #hd #LU800-grow .sc-tabnav-pill {
     background-color: #fff;
-    border: 1px solid #5B81DB;
+    border: 1px solid #3E68CB;
 }
 
 #hd #LU800-grow .sc-tab-btn {
-    color: #5B81DB;
+    color: #3E68CB;
 }
 
 #hd #LU800-grow .sc-tab-btn.is-active {
@@ -12540,19 +12555,19 @@ gap: 40px;*/
 }
 
 #hd #LU800-grow .sc-tab-btn:focus-visible {
-    outline: 2px solid #5B81DB;
+    outline: 2px solid #3E68CB;
     outline-offset: 2px;
 }
 
 /* 滑動指示條漸層色 */
 #hd #LU800-grow .sc-tab-indicator {
-    background: linear-gradient(135deg, #5B81DB 0%, #5B81DB 100%);
+    background: linear-gradient(135deg, #3E68CB 0%, #3E68CB 100%);
 
 }
 
 /* 卡片內標籤 Badge 色彩 */
 #hd #LU800-grow .sc-badge {
-    background: linear-gradient(135deg, #5B81DB 0%, #5B81DB 100%);
+    background: linear-gradient(135deg, #3E68CB 0%, #3E68CB 100%);
 }
 
 @media (max-width: 768px) {
@@ -12605,11 +12620,11 @@ gap: 40px;*/
 /* 膠囊 Tab 系統 */
 #hd #LU800-anything .sc-tabnav-pill {
     background-color: #fff;
-    border: 1px solid #5B81DB;
+    border: 1px solid #3E68CB;
 }
 
 #hd #LU800-anything .sc-tab-btn {
-    color: #5B81DB;
+    color: #3E68CB;
 }
 
 #hd #LU800-anything .sc-tab-btn.is-active {
@@ -12617,19 +12632,19 @@ gap: 40px;*/
 }
 
 #hd #LU800-anything .sc-tab-btn:focus-visible {
-    outline: 2px solid #5B81DB;
+    outline: 2px solid #3E68CB;
     outline-offset: 2px;
 }
 
 /* 滑動指示條漸層色 */
 #hd #LU800-anything .sc-tab-indicator {
-    background: linear-gradient(135deg, #5B81DB 0%, #5B81DB 100%);
+    background: linear-gradient(135deg, #3E68CB 0%, #3E68CB 100%);
 
 }
 
 /* 卡片內標籤 Badge 色彩 */
 #hd #LU800-anything .sc-badge {
-    background: linear-gradient(135deg, #5B81DB 0%, #5B81DB 100%);
+    background: linear-gradient(135deg, #3E68CB 0%, #3E68CB 100%);
 }
 
 /* 兩組圖示清單共用 6 欄網格結構 (6 × 2)[cite: 10, 11] */
