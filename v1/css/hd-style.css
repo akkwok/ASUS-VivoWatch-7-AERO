@@ -6807,7 +6807,7 @@ left: 0;
     color: #3E68CB !important;
     margin-bottom: 0em;
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -7983,7 +7983,7 @@ padding-bottom: 50px; */
 
 #hd #pageContent-workflow .maintitle h2 {
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -8061,7 +8061,7 @@ padding-bottom: 50px; */
 
 #hd #pageContent-dailyfit .maintitle h2 {
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -9081,7 +9081,7 @@ screen and (max-width: 1023px) {
 
 #hd #pageContent-App h2 {
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -10758,7 +10758,7 @@ Slide 01 專屬內部排版
     margin-bottom: 20px;
     width: 100%;
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -11498,7 +11498,7 @@ Slide 04 專屬樣式 (SOS 警告警示主題)
 #hd #LU800-slider .slide-title--sos {
     color: #ea55a0;
     /* 高識別度 SOS 警示洋紅色 */
-    background: linear-gradient(135deg, #ea55a0 0%, #ea55a0 100%);
+    background: linear-gradient(135deg, #ea55a0 0%, #8c0047 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -11652,7 +11652,7 @@ Software as Medical Device (SaMD) 專屬樣式架構
 #hd #pageContent-software .software-main-heading {
     margin-bottom: 24px;
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12349,8 +12349,13 @@ gap: 40px;*/
 
 /* 專屬 24/7 wellness 縮放字體顏色 */
 #hd #LU800-deeper h2.sc-scale-text {
-    color: #EA55A0 !important;
+    
     opacity: 0.3;
+    color: #ea55a0;
+        background-color: #ea55a0;
+    background-image: linear-gradient(58deg, #ea55a0 20%, #8c0047 80%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #hd #LU800-deeper h2.sc-scale-text span {
@@ -12361,6 +12366,10 @@ gap: 40px;*/
 /* 專屬標題健康桃紅色彩 */
 #hd #LU800-deeper .sc-title {
     color: #ea55a0;
+        background-color: #ea55a0;
+    background-image: linear-gradient(58deg, #ea55a0 20%, #8c0047 80%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* 專屬膠囊 Tab 邊框與色彩系統 */
@@ -12430,7 +12439,7 @@ gap: 40px;*/
 
 #hd #LU800-even h2 {
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12493,7 +12502,7 @@ gap: 40px;*/
 
 #hd #LU800-grow h2 {
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12566,7 +12575,7 @@ gap: 40px;*/
 }
 
 #hd #LU800-anything h2 {
-        background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+        background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -12953,7 +12962,7 @@ gap: 40px;*/
 #hd #pageContent-sec-healthai .hd-title-container h2 {
     display: inline-block;
     background-color: #3E68CB;
-    background-image: linear-gradient(58deg, #3E68CB 20%, #1c4299 80%);
+    background-image: linear-gradient(58deg, #3E68CB 20%, #042060 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
