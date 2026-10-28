@@ -1,0 +1,141 @@
+/*html5*/
+
+article,
+aside,
+dialog,
+footer,
+header,
+section,
+footer,
+nav,
+figure,
+menu {
+    display: block
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/* base */
+
+html,
+body,
+ul,
+li,
+dl,
+dt,
+dd,
+form,
+image {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    /*list-style: none;*/
+}
+
+img {
+    border: 0;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ul li,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+select,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: none;
+    /*解決Chrome 12px以下字級*/
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0;
+    font-family: inherit;
+    font-weight: bold;
+    line-height: 1;
+    color: inherit;
+    text-rendering: optimizelegibility;
+}
+#special-sectionOverview * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#special-sectionOverview sub, #special-sectionOverview sup { 
+    line-height: 0; 
+    position: relative; 
+    vertical-align: baseline;
+}
+#special-sectionOverview sup { 
+    top: -0.25em; 
+}
+#special-sectionOverview sub { 
+    bottom: -0.25em; 
+}
+
+#special-sectionOverview a:active {
+    background-color: transparent;
+}
+#special-sectionOverview a:hover {
+    color: #0164a2;
+    text-decoration: none;
+    cursor: pointer;
+}
+#special-sectionOverview a:hover, #special-sectionOverview a:active {
+    outline: 0;
+}
+#special-sectionOverview h2 {
+    background-image: none;
+    font-size: 24px;
+    color: #353535;
+    margin-bottom: 0.1em;
+    height: auto;
+    padding: 0;
+    font-weight: normal;
+}
+#special-sectionOverview h4 {
+    background-image: none;
+    font-size: 146.5%;
+    color: #353535;
+    margin-bottom: 0.4em;
+    height: auto;
+    padding: 0;
+    font-weight: normal;
+}
+#special-sectionOverview a {
+    color: #33b9ff;
+    text-decoration: none;
+}

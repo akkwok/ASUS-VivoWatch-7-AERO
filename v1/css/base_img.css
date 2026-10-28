@@ -1,0 +1,20 @@
+#special-sectionOverview img{
+    max-width: none;
+    height: auto;
+    vertical-align: middle;
+    border: none;
+    -ms-interpolation-mode: bicubic;
+}
+
+@media (max-width: 969px){
+	#special-sectionOverview img {
+	    max-width: 100% !important;
+	}
+}
+
+@media (max-width: 719px){
+	#special-sectionOverview img {
+	    padding: 0px !important;
+	    margin: 0px !important;
+	}
+}
