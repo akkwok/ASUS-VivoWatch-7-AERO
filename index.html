@@ -1683,7 +1683,7 @@
                         </div>
                       </div>
                     </div>
-                    <div id="pageContent-panel-tip" class="hd-panel panel-tip" role="tabpanel" tabindex="0" aria-current="false" aria-labelledby="pageContent-tab-tip">
+                    <div id="pageContent-panel-tip" class="hd-panel panel-tip" role="tabpanel" tabindex="-1" hidden aria-hidden="true" aria-labelledby="pageContent-tab-tip">
                       <div class="hd-container flex-nowrap align-items-center">
                         <div class="hd-content">
                           <h3>Tips</h3>
@@ -1695,7 +1695,7 @@
                         </div>
                       </div>
                     </div>
-                    <div id="pageContent-panel-workout" class="hd-panel panel-workout" role="tabpanel" tabindex="0" aria-current="false" aria-labelledby="pageContent-tab-workout">
+                    <div id="pageContent-panel-workout" class="hd-panel panel-workout" role="tabpanel" tabindex="-1" hidden aria-hidden="true" aria-labelledby="pageContent-tab-workout">
                       <div class="hd-container flex-nowrap align-items-center">
                         <div class="hd-content">
                           <h3>Workout</h3>
@@ -1707,7 +1707,7 @@
                         </div>
                       </div>
                     </div>
-                    <div id="pageContent-panel-carechat" class="hd-panel panel-carechat" role="tabpanel" tabindex="0" aria-current="false" aria-labelledby="pageContent-tab-carechat">
+                    <div id="pageContent-panel-carechat" class="hd-panel panel-carechat" role="tabpanel" tabindex="-1" hidden aria-hidden="true" aria-labelledby="pageContent-tab-carechat">
                       <div class="hd-container flex-nowrap align-items-center">
                         <div class="hd-content">
                           <h3>CareChat</h3>
@@ -1771,15 +1771,18 @@
                             const $this = $(this);
                             if ($this.attr('id') === targetPanelId) {
                                 $this
+                                    .prop('hidden', false)
                                     .removeAttr('hidden')
                                     .attr('aria-hidden', 'false')
+                                    .attr('tabindex', '0') // 關鍵：激活時才允許聚焦
                                     .stop(true, true)
                                     .fadeIn(300)
                                     .addClass('is-active');
                             } else {
                                 $this
-                                    .attr('hidden', 'until-found') // 現代瀏覽器平滑支援
+                                    .attr('hidden', 'hidden') // 關鍵：使用標準原生 hidden
                                     .attr('aria-hidden', 'true')
+                                    .attr('tabindex', '-1') // 關鍵：隱藏時拔除鍵盤焦點，避免 aria-hidden 衝突
                                     .stop(true, true)
                                     .hide()
                                     .removeClass('is-active');
