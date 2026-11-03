@@ -107,8 +107,7 @@
         <div class="bg">
             <img src="v1/img/bg_viu.jpg" alt="Scenic photo representing ASUS Biometrics CDSS Agent can unlock the full value of clinical data">
         </div>
-        <div class="maintitle">
-            <!-- <span class="style_title">ASUS Portable Ultrasound Series</span> -->
+        <div class="maintitle maintitle_b">
             <h2>Stay in Touch with Your Wellness</h2>
             <h3>ASUS VivoWatch 7 AERO</h3>
             <div class="info reveal-bottom-delay1">
@@ -235,7 +234,7 @@
                                         <img src="v1/img/ksp/09_ico_c.png" alt="Three circular icons illustrating SpO2 oxygen level, heart rate, and footsteps for activity tracking" loading="lazy">
                                     </span>
                                 </div>
-                                <p class="ksp-desc">SpO2 Heart Rate Steps &amp; Calories</p>
+                                <p class="ksp-desc text-center">SpO2, Heart Rate,<br>Steps &amp; Calories</p>
                             </div>
                         </div>
                     </li>
@@ -399,7 +398,7 @@
                                     </div>
                                 </div>
                                 <!-- Slide 04: Dedicated SOS Button -->
-                                <div class="s7-slide s7-slide-4" role="group" aria-roledescription="slide" aria-label="Slide 4 of 4: Dedicated SOS Button">
+                                <div class="s7-slide s7-slide-4" role="group" aria-roledescription="slide" aria-label="Slide 4 of 4: Dedicated SOS Button" style="display:none;">
                                     <div class="slide-card-container">
                                         <!-- 左側 / 視覺重點區：SOS 手錶與聲波擴散效果 -->
                                         <div class="slide-visual-col slide-visual-col--sos">
@@ -423,6 +422,7 @@
                                                 </div>
                                                 <!-- 手錶正面螢幕圖 (垂直居中，錶帶自然出框) -->
                                                 <img class="slide-sos-watch-img" src="v1/img/s7-slide-4_pd.png" alt="Emergency SOS countdown interface on VivoWatch 7 AERO display" loading="lazy" decoding="async">
+                                                <img class="slide-ico_arrow" src="v1/img/ico_arrow.png" aria-hidden="true" loading="lazy" decoding="async">
                                             </div>
                                         </div>
                                         <!-- 右側 / 標題與說明內文區 -->
@@ -457,414 +457,443 @@
                         </div>
                     </div>
                     <!-- ==========================================================================
-                    重構核心互動引擎：全面切換為「動態像素置中算法」
-                    ========================================================================== -->
-                    <script>
-                    (() => {
-                        const swiper = document.getElementById("s7Swiper");
-                        const wrapper = document.getElementById("s7Wrapper");
-                        const slides = Array.from(wrapper.querySelectorAll(".s7-slide"));
-                        const pagination = document.getElementById("s7Pagination");
-                        const playBtn = document.getElementById("s7PlayBtn");
+            核心互動引擎：加入可見元素動態篩選與 WCAG 即時無障礙標記同步
+            ========================================================================== -->
+            <script>
+            (() => {
+                const swiper = document.getElementById("s7Swiper");
+                const wrapper = document.getElementById("s7Wrapper");
+                if (!swiper || !wrapper) return;
 
-                        const TOTAL = slides.length;
-                        const DURATION = 5000;
-                        let currentIndex = 0;
-                        let isPlaying = true;
-                        let animFrameId = null;
-                        let startTime = null;
-                        let pausedTime = 0;
+                // 核心修正 1：僅抓取未被隱藏的可見卡片 (排除 display:none 或 hidden 屬性)
+                const allSlides = Array.from(wrapper.querySelectorAll(".s7-slide"));
+                const slides = allSlides.filter(slide => {
+                    const isInlineHidden = slide.style.display === "none";
+                    const isAttrHidden = slide.hasAttribute("hidden");
+                    const isComputedHidden = window.getComputedStyle(slide).display === "none";
+                    return !isInlineHidden && !isAttrHidden && !isComputedHidden;
+                });
 
-                        const bullets = [];
-                        const progresses = [];
+                const pagination = document.getElementById("s7Pagination");
+                const playBtn = document.getElementById("s7PlayBtn");
 
-                        // 計算每張卡片在不同螢幕寬度下居中所需的精準像素平移值
-                        function getTargetTranslateX(index) {
-                            if (!slides[index]) return 0;
-                            const containerWidth = swiper.offsetWidth;
-                            const targetSlide = slides[index];
+                // 動態取得可見卡片總數
+                const TOTAL = slides.length;
+                if (TOTAL === 0) return;
 
-                            // 取得 Slide 實體寬度與左右 margin
-                            const slideWidth = targetSlide.offsetWidth;
-                            const style = window.getComputedStyle(targetSlide);
-                            const marginLeft = parseFloat(style.marginLeft) || 0;
-                            const marginRight = parseFloat(style.marginRight) || 0;
-                            const totalSlideWidth = slideWidth + marginLeft + marginRight;
+                const DURATION = 5000;
+                let currentIndex = 0;
+                let isPlaying = true;
+                let animFrameId = null;
+                let startTime = null;
+                let pausedTime = 0;
 
-                            // 核心算法：將目標卡片置中在 swiper 視窗正中央
-                            const centerOffset = (containerWidth - slideWidth) / 2 - marginLeft;
-                            return centerOffset - (index * totalSlideWidth);
-                        }
+                const bullets = [];
+                const progresses = [];
 
-                        // 初始化 Pagination Bullets
-                        function initPagination() {
-                            pagination.innerHTML = "";
-                            bullets.length = 0;
-                            progresses.length = 0;
+                // 計算每張卡片置中所需的精準像素平移值
+                function getTargetTranslateX(index) {
+                    if (!slides[index]) return 0;
+                    const containerWidth = swiper.offsetWidth;
+                    const targetSlide = slides[index];
 
-                            slides.forEach((_, i) => {
-                                const bullet = document.createElement("button");
-                                bullet.className = `s7-bullet ${i === 0 ? "is-active" : ""}`;
-                                bullet.setAttribute("role", "tab");
-                                bullet.setAttribute("aria-label", `Go to slide ${i + 1}`);
-                                bullet.setAttribute("aria-selected", i === 0 ? "true" : "false");
+                    const slideWidth = targetSlide.offsetWidth;
+                    const style = window.getComputedStyle(targetSlide);
+                    const marginLeft = parseFloat(style.marginLeft) || 0;
+                    const marginRight = parseFloat(style.marginRight) || 0;
+                    const totalSlideWidth = slideWidth + marginLeft + marginRight;
 
-                                const progress = document.createElement("div");
-                                progress.className = "s7-bullet-progress";
-                                bullet.appendChild(progress);
+                    const centerOffset = (containerWidth - slideWidth) / 2 - marginLeft;
+                    return centerOffset - (index * totalSlideWidth);
+                }
 
-                                bullet.addEventListener("click", () => goToSlide(i));
+                // 初始化 Pagination Bullets 與 WCAG 標籤
+                function initPagination() {
+                    pagination.innerHTML = "";
+                    bullets.length = 0;
+                    progresses.length = 0;
 
-                                pagination.appendChild(bullet);
-                                bullets.push(bullet);
-                                progresses.push(progress);
-                            });
-                        }
+                    slides.forEach((slide, i) => {
+                        // 同步修正 Slide 自身的無障礙標籤，確保語音讀出真實總張數 (如 Slide 1 of 3)
+                        const originalLabel = slide.getAttribute("aria-label") || "";
+                        const cleanLabel = originalLabel.replace(/^Slide\s+\d+\s+of\s+\d+:\s*/i, "");
+                        slide.setAttribute("aria-label", `Slide ${i + 1} of ${TOTAL}${cleanLabel ? `: ${cleanLabel}` : ""}`);
 
-                        // 更新輪播位置（以 px 為單位）
-                        function updateCarousel(index, animate = true) {
-                            wrapper.style.transition = animate ? "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
-                            const targetX = getTargetTranslateX(index);
-                            wrapper.style.transform = `translateX(${targetX}px)`;
+                        const bullet = document.createElement("button");
+                        bullet.className = `s7-bullet ${i === 0 ? "is-active" : ""}`;
+                        bullet.setAttribute("role", "tab");
+                        bullet.setAttribute("type", "button");
+                        bullet.setAttribute("aria-label", `Go to slide ${i + 1} of ${TOTAL}`);
+                        bullet.setAttribute("aria-selected", i === 0 ? "true" : "false");
 
-                            slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
-                            bullets.forEach((bullet, i) => {
-                                bullet.classList.toggle("is-active", i === index);
-                                bullet.setAttribute("aria-selected", i === index ? "true" : "false");
-                            });
-                        }
+                        const progress = document.createElement("div");
+                        progress.className = "s7-bullet-progress";
+                        bullet.appendChild(progress);
 
-                        // 動畫幀循環 (Progress Bar)
-                        function tick(now) {
-                            if (!isPlaying) return;
-                            if (!startTime) startTime = now - pausedTime;
-                            const elapsed = now - startTime;
-                            const percent = Math.min(100, (elapsed / DURATION) * 100);
+                        bullet.addEventListener("click", () => goToSlide(i));
 
-                            if (progresses[currentIndex]) {
-                                progresses[currentIndex].style.width = `${percent}%`;
-                            }
+                        pagination.appendChild(bullet);
+                        bullets.push(bullet);
+                        progresses.push(progress);
+                    });
+                }
 
-                            if (elapsed >= DURATION) {
-                                if (progresses[currentIndex]) progresses[currentIndex].style.width = "0%";
-                                currentIndex = (currentIndex + 1) % TOTAL;
-                                updateCarousel(currentIndex);
-                                startTime = performance.now();
-                                pausedTime = 0;
-                            }
+                // 更新輪播位置
+                function updateCarousel(index, animate = true) {
+                    wrapper.style.transition = animate ? "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
+                    const targetX = getTargetTranslateX(index);
+                    wrapper.style.transform = `translateX(${targetX}px)`;
 
-                            animFrameId = requestAnimationFrame(tick);
-                        }
+                    // 僅針對可見的 slides 切換 active 狀態
+                    allSlides.forEach(slide => slide.classList.remove("is-active"));
+                    if (slides[index]) {
+                        slides[index].classList.add("is-active");
+                    }
 
-                        function startTimer() {
-                            if (!isPlaying) return;
-                            startTime = null;
-                            pausedTime = 0;
-                            cancelAnimationFrame(animFrameId);
-                            animFrameId = requestAnimationFrame(tick);
-                        }
+                    bullets.forEach((bullet, i) => {
+                        bullet.classList.toggle("is-active", i === index);
+                        bullet.setAttribute("aria-selected", i === index ? "true" : "false");
+                    });
+                }
 
-                        function pauseTimer() {
-                            cancelAnimationFrame(animFrameId);
-                            if (startTime) pausedTime = performance.now() - startTime;
-                        }
+                // 動畫幀循環 (Progress Bar)
+                function tick(now) {
+                    if (!isPlaying) return;
+                    if (!startTime) startTime = now - pausedTime;
+                    const elapsed = now - startTime;
+                    const percent = Math.min(100, (elapsed / DURATION) * 100);
 
-                        function goToSlide(index) {
-                            if (progresses[currentIndex]) progresses[currentIndex].style.width = "0%";
-                            currentIndex = index;
-                            updateCarousel(currentIndex);
-                            if (isPlaying) {
-                                startTimer();
-                            } else {
-                                pausedTime = 0;
-                            }
-                        }
+                    if (progresses[currentIndex]) {
+                        progresses[currentIndex].style.width = `${percent}%`;
+                    }
 
-                        // Play / Pause 按鈕監聽
-                        playBtn.addEventListener("click", () => {
-                            isPlaying = !isPlaying;
-                            playBtn.classList.toggle("is-paused", !isPlaying);
-                            playBtn.setAttribute("aria-label", isPlaying ? "Pause autoplay" : "Start autoplay");
-                            if (isPlaying) {
-                                animFrameId = requestAnimationFrame(tick);
-                            } else {
-                                pauseTimer();
-                            }
-                        });
+                    if (elapsed >= DURATION) {
+                        if (progresses[currentIndex]) progresses[currentIndex].style.width = "0%";
+                        currentIndex = (currentIndex + 1) % TOTAL;
+                        updateCarousel(currentIndex);
+                        startTime = performance.now();
+                        pausedTime = 0;
+                    }
 
-                        // 滑鼠拖曳與觸控滑動支援（以像素平移，更加線性直覺）
-                        let isDragging = false,
-                            startX = 0,
-                            currentX = 0,
-                            dragDistance = 0;
+                    animFrameId = requestAnimationFrame(tick);
+                }
 
-                        function onDragStart(e) {
-                            if (e.type === "mousedown" && e.button !== 0) return;
-                            isDragging = true;
-                            swiper.classList.add("is-dragging");
-                            pauseTimer();
+                function startTimer() {
+                    if (!isPlaying) return;
+                    startTime = null;
+                    pausedTime = 0;
+                    cancelAnimationFrame(animFrameId);
+                    animFrameId = requestAnimationFrame(tick);
+                }
 
-                            startX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
-                            currentX = startX;
-                            dragDistance = 0;
-                            wrapper.style.transition = "none";
-                        }
+                function pauseTimer() {
+                    cancelAnimationFrame(animFrameId);
+                    if (startTime) pausedTime = performance.now() - startTime;
+                }
 
-                        function onDragMove(e) {
-                            if (!isDragging) return;
-                            currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
-                            dragDistance = currentX - startX;
-                            const currentBaseX = getTargetTranslateX(currentIndex);
-                            wrapper.style.transform = `translateX(${currentBaseX + dragDistance}px)`;
-                        }
-
-                        function onDragEnd() {
-                            if (!isDragging) return;
-                            isDragging = false;
-                            swiper.classList.remove("is-dragging");
-                            const threshold = 60;
-
-                            if (dragDistance < -threshold && currentIndex < TOTAL - 1) {
-                                goToSlide(currentIndex + 1);
-                            } else if (dragDistance > threshold && currentIndex > 0) {
-                                goToSlide(currentIndex - 1);
-                            } else {
-                                updateCarousel(currentIndex, true);
-                                if (isPlaying) startTimer();
-                            }
-                        }
-
-                        swiper.addEventListener("mousedown", onDragStart);
-                        window.addEventListener("mousemove", onDragMove);
-                        window.addEventListener("mouseup", onDragEnd);
-                        swiper.addEventListener("touchstart", onDragStart, { passive: true });
-                        window.addEventListener("touchmove", onDragMove, { passive: true });
-                        window.addEventListener("touchend", onDragEnd);
-
-                        // 視窗 Resize 時即時重新計算精準平移
-                        let resizeTimer;
-                        window.addEventListener("resize", () => {
-                            clearTimeout(resizeTimer);
-                            resizeTimer = setTimeout(() => {
-                                updateCarousel(currentIndex, false);
-                            }, 50);
-                        });
-
-                        // 初始化
-                        initPagination();
-                        updateCarousel(0, false);
+                function goToSlide(index) {
+                    if (progresses[currentIndex]) progresses[currentIndex].style.width = "0%";
+                    currentIndex = index;
+                    updateCarousel(currentIndex);
+                    if (isPlaying) {
                         startTimer();
-                    })();
-                    </script>
-                    <script>
-(() => {
-    window.addEventListener("DOMContentLoaded", () => {
-        const sliderSec = document.querySelector("#hd #LU800-slider");
-        if (!sliderSec) return;
-
-        const pagination = sliderSec.querySelector("#s7Pagination");
-        const playBtn = sliderSec.querySelector("#s7PlayBtn");
-        if (!pagination) return;
-
-        const TOTAL_SLIDES = 4;
-        let currentStep = 0;          // 0, 1, 2, 3
-        let isCoolingDown = false;    // 滾輪切換冷卻閥
-        let idleTimer = null;         // 靜止 2 秒計時器
-        const IDLE_DELAY = 2000;
-        let boundaryHits = 0;         // 邊界確認計數器
-        const REQUIRED_HITS = 2;      // 需額外多滾 2 下才放行
-        let isExiting = false;        // 關鍵旗標：標記是否正在滑離本區塊
-
-        function goToSlide(index) {
-            if (index < 0 || index >= TOTAL_SLIDES) return;
-            currentStep = index;
-            boundaryHits = 0;
-            const bullets = pagination.querySelectorAll(".s7-bullet");
-            if (bullets[index]) {
-                bullets[index].click();
-            }
-        }
-
-        function resumeAutoplay() {
-            // 只有在還停留在區塊內時才允許自動播放，離開時不啟動
-            if (isExiting) return;
-            if (playBtn && playBtn.classList.contains("is-paused")) {
-                playBtn.click();
-            }
-        }
-
-        function pauseAutoplay() {
-            if (playBtn && !playBtn.classList.contains("is-paused")) {
-                playBtn.click();
-            }
-        }
-
-        function resetIdleTimer() {
-            if (isExiting) return;
-            clearTimeout(idleTimer);
-            pauseAutoplay();
-
-            idleTimer = setTimeout(() => {
-                const rect = sliderSec.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                // 必須依然在此區塊中央才喚醒自動播放
-                if (rect.top <= 10 && rect.bottom >= windowHeight * 0.8) {
-                    resumeAutoplay();
-                }
-            }, IDLE_DELAY);
-        }
-
-        // 手動點擊 Bullet
-        const bullets = pagination.querySelectorAll(".s7-bullet");
-        bullets.forEach((bullet, idx) => {
-            bullet.addEventListener("click", () => {
-                currentStep = idx;
-                boundaryHits = 0;
-                resetIdleTimer();
-            });
-        });
-
-        // 輪播自動跳轉監聽：只同步狀態，絕不主動偷改視窗 window.scrollTo
-        const observer = new MutationObserver(() => {
-            bullets.forEach((bullet, idx) => {
-                if (bullet.classList.contains("is-active") && currentStep !== idx) {
-                    currentStep = idx;
-                    boundaryHits = 0;
-                }
-            });
-        });
-        observer.observe(pagination, { attributes: true, subtree: true, attributeFilter: ["class"] });
-
-        // 監聽視窗捲動，重置離開旗標
-        window.addEventListener("scroll", () => {
-            const rect = sliderSec.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            // 當使用者滾回到區塊內部時，解除離開標記
-            if (rect.top <= 10 && rect.bottom >= windowHeight * 0.9) {
-                isExiting = false;
-            } else {
-                // 只要視窗滑出本區（往上或往下），立刻暫停輪播，避免背後偷偷循環
-                pauseAutoplay();
-                clearTimeout(idleTimer);
-            }
-        }, { passive: true });
-
-        // 核心滾輪事件監聽
-        function handleWheel(e) {
-            const rect = sliderSec.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-
-            const isInPinZone = (rect.top <= 10 && rect.bottom >= windowHeight * 0.9);
-            if (!isInPinZone) {
-                boundaryHits = 0;
-                return;
-            }
-
-            const delta = e.deltaY;
-
-            // ----------------------------------------------------
-            // 情況一：滾輪往下滾 (delta > 0)
-            // ----------------------------------------------------
-            if (delta > 20) {
-                // 已在第 4 張 (index = 3)
-                if (currentStep >= TOTAL_SLIDES - 1) {
-                    if (boundaryHits < REQUIRED_HITS) {
-                        e.preventDefault();
-                        if (isCoolingDown) return;
-                        boundaryHits++;
-                        throttleScroll(300);
-                        resetIdleTimer();
-                        return;
+                    } else {
+                        pausedTime = 0;
                     }
-
-                    // 達成 2 次緩衝：標記離開，凍結輪播，放行順滑滾向下一個 Section
-                    isExiting = true;
-                    clearTimeout(idleTimer);
-                    pauseAutoplay(); // 保持在第 4 張，不要讓它偷偷跳回第 1 張
-                    return;
                 }
 
-                // 在第 1、2、3 張時：正常步進下一張
-                e.preventDefault();
-                if (isCoolingDown) return;
-
-                boundaryHits = 0;
-                goToSlide(currentStep + 1);
-                throttleScroll(450);
-                resetIdleTimer();
-            }
-            // ----------------------------------------------------
-            // 情況二：滾輪往上滾 (delta < 0)
-            // ----------------------------------------------------
-            else if (delta < -20) {
-                // 已在第 1 張 (index = 0)
-                if (currentStep <= 0) {
-                    if (boundaryHits < REQUIRED_HITS) {
-                        e.preventDefault();
-                        if (isCoolingDown) return;
-                        boundaryHits++;
-                        throttleScroll(300);
-                        resetIdleTimer();
-                        return;
-                    }
-
-                    // 達成 2 次緩衝：標記離開，放行滾回上一個 Section
-                    isExiting = true;
-                    clearTimeout(idleTimer);
-                    pauseAutoplay();
-                    return;
-                }
-
-                // 在第 2、3、4 張時：正常步進退回上一張
-                e.preventDefault();
-                if (isCoolingDown) return;
-
-                boundaryHits = 0;
-                goToSlide(currentStep - 1);
-                throttleScroll(450);
-                resetIdleTimer();
-            }
-        }
-
-        // 冷卻閥
-        function throttleScroll(delay = 450) {
-            isCoolingDown = true;
-            setTimeout(() => {
-                isCoolingDown = false;
-            }, delay);
-        }
-
-        window.addEventListener("wheel", handleWheel, { passive: false });
-
-        // 觸控手勢支援 (Touchpad / Mobile)
-        let touchStartY = 0;
-        window.addEventListener("touchstart", (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        window.addEventListener("touchmove", (e) => {
-            const rect = sliderSec.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            if (rect.top <= 10 && rect.bottom >= windowHeight * 0.9) {
-                const touchEndY = e.touches[0].clientY;
-                const diff = touchStartY - touchEndY;
-
-                if (Math.abs(diff) > 35) {
-                    handleWheel({
-                        deltaY: diff,
-                        preventDefault: () => {
-                            if (e.cancelable) e.preventDefault();
+                // Play / Pause 按鈕監聽
+                if (playBtn) {
+                    playBtn.addEventListener("click", () => {
+                        isPlaying = !isPlaying;
+                        playBtn.classList.toggle("is-paused", !isPlaying);
+                        playBtn.setAttribute("aria-label", isPlaying ? "Pause autoplay" : "Start autoplay");
+                        if (isPlaying) {
+                            animFrameId = requestAnimationFrame(tick);
+                        } else {
+                            pauseTimer();
                         }
                     });
-                    touchStartY = touchEndY;
                 }
-            }
-        }, { passive: false });
 
-        resetIdleTimer();
-    });
-})();
-</script>
+                // 滑鼠拖曳與觸控滑動支援
+                let isDragging = false,
+                    startX = 0,
+                    currentX = 0,
+                    dragDistance = 0;
+
+                function onDragStart(e) {
+                    if (e.type === "mousedown" && e.button !== 0) return;
+                    isDragging = true;
+                    swiper.classList.add("is-dragging");
+                    pauseTimer();
+
+                    startX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+                    currentX = startX;
+                    dragDistance = 0;
+                    wrapper.style.transition = "none";
+                }
+
+                function onDragMove(e) {
+                    if (!isDragging) return;
+                    currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+                    dragDistance = currentX - startX;
+                    const currentBaseX = getTargetTranslateX(currentIndex);
+                    wrapper.style.transform = `translateX(${currentBaseX + dragDistance}px)`;
+                }
+
+                function onDragEnd() {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    swiper.classList.remove("is-dragging");
+                    const threshold = 60;
+
+                    if (dragDistance < -threshold && currentIndex < TOTAL - 1) {
+                        goToSlide(currentIndex + 1);
+                    } else if (dragDistance > threshold && currentIndex > 0) {
+                        goToSlide(currentIndex - 1);
+                    } else {
+                        updateCarousel(currentIndex, true);
+                        if (isPlaying) startTimer();
+                    }
+                }
+
+                swiper.addEventListener("mousedown", onDragStart);
+                window.addEventListener("mousemove", onDragMove);
+                window.addEventListener("mouseup", onDragEnd);
+                swiper.addEventListener("touchstart", onDragStart, { passive: true });
+                window.addEventListener("touchmove", onDragMove, { passive: true });
+                window.addEventListener("touchend", onDragEnd);
+
+                // 視窗 Resize 時即時重新計算平移
+                let resizeTimer;
+                window.addEventListener("resize", () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        updateCarousel(currentIndex, false);
+                    }, 50);
+                });
+
+                // 初始化啟動
+                initPagination();
+                updateCarousel(0, false);
+                startTimer();
+            })();
+            </script>
+
+            <!-- ==========================================================================
+            滾輪與視窗 Pin 滾動監聽：解除常數限制，與 Pagination 實際可見數量精準連動
+            ========================================================================== -->
+            <script>
+            (() => {
+                window.addEventListener("DOMContentLoaded", () => {
+                    const sliderSec = document.querySelector("#LU800-slider");
+                    if (!sliderSec) return;
+
+                    const pagination = sliderSec.querySelector("#s7Pagination");
+                    const playBtn = sliderSec.querySelector("#s7PlayBtn");
+                    if (!pagination) return;
+
+                    let currentStep = 0;
+                    let isCoolingDown = false;
+                    let idleTimer = null;
+                    const IDLE_DELAY = 2000;
+                    let boundaryHits = 0;
+                    const REQUIRED_HITS = 2;
+                    let isExiting = false;
+
+                    // 核心修正 2：動態取得 Bullets，不寫死 TOTAL_SLIDES = 4
+                    function getBullets() {
+                        return pagination.querySelectorAll(".s7-bullet");
+                    }
+
+                    function getTotalSlides() {
+                        return getBullets().length;
+                    }
+
+                    function goToSlide(index) {
+                        const total = getTotalSlides();
+                        if (index < 0 || index >= total) return;
+                        currentStep = index;
+                        boundaryHits = 0;
+                        const bullets = getBullets();
+                        if (bullets[index]) {
+                            bullets[index].click();
+                        }
+                    }
+
+                    function resumeAutoplay() {
+                        if (isExiting) return;
+                        if (playBtn && playBtn.classList.contains("is-paused")) {
+                            playBtn.click();
+                        }
+                    }
+
+                    function pauseAutoplay() {
+                        if (playBtn && !playBtn.classList.contains("is-paused")) {
+                            playBtn.click();
+                        }
+                    }
+
+                    function resetIdleTimer() {
+                        if (isExiting) return;
+                        clearTimeout(idleTimer);
+                        pauseAutoplay();
+
+                        idleTimer = setTimeout(() => {
+                            const rect = sliderSec.getBoundingClientRect();
+                            const windowHeight = window.innerHeight;
+                            if (rect.top <= 10 && rect.bottom >= windowHeight * 0.8) {
+                                resumeAutoplay();
+                            }
+                        }, IDLE_DELAY);
+                    }
+
+                    // 綁定 Bullet 點擊事件
+                    function bindBullets() {
+                        const bullets = getBullets();
+                        bullets.forEach((bullet, idx) => {
+                            bullet.addEventListener("click", () => {
+                                currentStep = idx;
+                                boundaryHits = 0;
+                                resetIdleTimer();
+                            });
+                        });
+                    }
+                    bindBullets();
+
+                    // 輪播跳轉監聽
+                    const observer = new MutationObserver(() => {
+                        const bullets = getBullets();
+                        bullets.forEach((bullet, idx) => {
+                            if (bullet.classList.contains("is-active") && currentStep !== idx) {
+                                currentStep = idx;
+                                boundaryHits = 0;
+                            }
+                        });
+                    });
+                    observer.observe(pagination, { attributes: true, subtree: true, attributeFilter: ["class"] });
+
+                    // 監聽視窗捲動
+                    window.addEventListener("scroll", () => {
+                        const rect = sliderSec.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        if (rect.top <= 10 && rect.bottom >= windowHeight * 0.9) {
+                            isExiting = false;
+                        } else {
+                            pauseAutoplay();
+                            clearTimeout(idleTimer);
+                        }
+                    }, { passive: true });
+
+                    // 核心滾輪事件監聽
+                    function handleWheel(e) {
+                        const rect = sliderSec.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+
+                        const isInPinZone = (rect.top <= 10 && rect.bottom >= windowHeight * 0.9);
+                        if (!isInPinZone) {
+                            boundaryHits = 0;
+                            return;
+                        }
+
+                        const delta = e.deltaY;
+                        const totalSlides = getTotalSlides();
+
+                        // 往下滾動 (delta > 0)
+                        if (delta > 20) {
+                            // 動態以 totalSlides - 1 作為末頁判斷 (3 張即為 index 2)
+                            if (currentStep >= totalSlides - 1) {
+                                if (boundaryHits < REQUIRED_HITS) {
+                                    e.preventDefault();
+                                    if (isCoolingDown) return;
+                                    boundaryHits++;
+                                    throttleScroll(300);
+                                    resetIdleTimer();
+                                    return;
+                                }
+
+                                isExiting = true;
+                                clearTimeout(idleTimer);
+                                pauseAutoplay();
+                                return;
+                            }
+
+                            e.preventDefault();
+                            if (isCoolingDown) return;
+
+                            boundaryHits = 0;
+                            goToSlide(currentStep + 1);
+                            throttleScroll(450);
+                            resetIdleTimer();
+                        }
+                        // 往上滾動 (delta < 0)
+                        else if (delta < -20) {
+                            if (currentStep <= 0) {
+                                if (boundaryHits < REQUIRED_HITS) {
+                                    e.preventDefault();
+                                    if (isCoolingDown) return;
+                                    boundaryHits++;
+                                    throttleScroll(300);
+                                    resetIdleTimer();
+                                    return;
+                                }
+
+                                isExiting = true;
+                                clearTimeout(idleTimer);
+                                pauseAutoplay();
+                                return;
+                            }
+
+                            e.preventDefault();
+                            if (isCoolingDown) return;
+
+                            boundaryHits = 0;
+                            goToSlide(currentStep - 1);
+                            throttleScroll(450);
+                            resetIdleTimer();
+                        }
+                    }
+
+                    // 滾動節流
+                    function throttleScroll(delay = 450) {
+                        isCoolingDown = true;
+                        setTimeout(() => {
+                            isCoolingDown = false;
+                        }, delay);
+                    }
+
+                    window.addEventListener("wheel", handleWheel, { passive: false });
+
+                    // 觸控手勢支援
+                    let touchStartY = 0;
+                    window.addEventListener("touchstart", (e) => {
+                        touchStartY = e.touches[0].clientY;
+                    }, { passive: true });
+
+                    window.addEventListener("touchmove", (e) => {
+                        const rect = sliderSec.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        if (rect.top <= 10 && rect.bottom >= windowHeight * 0.9) {
+                            const touchEndY = e.touches[0].clientY;
+                            const diff = touchStartY - touchEndY;
+
+                            if (Math.abs(diff) > 35) {
+                                handleWheel({
+                                    deltaY: diff,
+                                    preventDefault: () => {
+                                        if (e.cancelable) e.preventDefault();
+                                    }
+                                });
+                                touchStartY = touchEndY;
+                            }
+                        }
+                    }, { passive: false });
+
+                    resetIdleTimer();
+                });
+            })();
+            </script>
                 </div>
             </div>
         </section>
@@ -911,7 +940,7 @@
                         <div id="panel-ecg" class="software-panel" role="tabpanel" aria-labelledby="tabBtn-ecg" tabindex="0" hidden>
                             <h3 class="panel-subheading">Taking an ECG with ASUS VivoWatch 7 AERO</h3>
                             <div class="info text-left reveal-bottom-delay1">
-                                Place your thumb and forefinger on the dual sensors of VivoWatch for 30 seconds to get detailed recordings on the electrocardiogram (ECG) app. Use ASUS HealthConnect to share ECG results with your healthcare provider.*
+                                Place your thumb on the dual sensors of VivoWatch for 30 seconds to get detailed recordings on the electrocardiogram (ECG) app. Use ASUS HealthConnect to share ECG results with your healthcare provider.*
                             </div>
                             <p class="note text-left">*ECG availability may vary by region.</p>
                         </div>
@@ -1038,7 +1067,7 @@
                                             <span class="sc-badge">Respiration Rate</span>
                                             <h3 class="sc-card-title">Tune to Your Breath, Restore Your Balance.</h3>
                                             <div class="info text-left reveal-bottom-delay1 revealed">
-                                                Track your breathing rhythm around the clock. By analyzing your personal baseline, ASUS VivoWatch 7 AERO helps you decode subtle shifts from stress, altitude, sleep, and daily demands. Guiding you with timely breathing exercises to restore your natural balance. Stay informed and use guided breathing exercises to regain your natural calm.
+                                                Track your breathing rhythm around the clock. Helps you decode subtle shifts from stress, altitude, sleep, and daily demands, allowing you to regain your natural calm.
                                             </div>
                                         </div>
                                     </div>
